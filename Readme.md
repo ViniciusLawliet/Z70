@@ -335,3 +335,7 @@ Ensure code is:
 ## Credits
 
 This project is based on teaching materials and lecture notes by Prof. **André Gustavo Adami**, who uses the hypothetical **Z70 architecture** as a pedagogical tool in the course *Fundamentals of Computer Architecture* to introduce low-level concepts and prepare students for later studies in assembly x86 language.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
