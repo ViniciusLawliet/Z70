@@ -1,0 +1,26 @@
+mov I, 80H          // I points to start of data (80H)
+mov [I], 02H        // store first value
+inc I               // move to next address
+mov [I], 03H        // store second value
+inc I               // move to next address
+mov [I], 01H        // store third value
+sub I, 02H          // return I to first value (80H)
+T1:   
+    mov A, [I]      // load current value into A
+T2:   
+    inc I           // move to next value
+	cmp I, 83H      // reached result address?
+	jz END          // if yes, finish
+	cmp A, [I]      // compare A with next value
+	js T1           // if A < memory, update A
+	jmp T2          // otherwise, continue
+END:  
+    mov [I], A      // store largest value at 83H
+
+// cmd: python z70.py test.z70 80H-83H
+// This program initializes three 8-bit positive values in memory locations 80H, 81H, and 82H. 
+// Register "I" is used as a pointer to traverse these memory locations. 
+// The program loads the current candidate for the maximum value into register "A" and compares it with the next memory value. 
+// If a larger value is found, it replaces the value in "A". 
+// This process continues until all three values are checked. 
+// Finally, the largest value is stored in memory location 83H.

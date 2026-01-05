@@ -1,0 +1,37 @@
+mov I, 80H
+mov A, 48H
+mov [I], A
+inc I
+add A, 1DH
+mov [I], A
+inc I
+add A, 7H
+mov [I], A
+inc I
+mov [I], A
+inc I
+add A, 03H
+mov [I], A
+inc I
+sub A, 4FH
+mov [I], A
+inc I
+add A, 37H
+mov [I], A
+inc I
+add A, 18H
+mov [I], A
+inc I
+add A, 03H
+mov [I], A
+inc I
+sub A, 06H
+mov [I], A
+inc I
+sub A, 08H
+mov [I], A
+inc I
+sub A, 43H
+mov [I], A
+
+// cmd: python z70.py test.z70 80H-8BH lst.txt

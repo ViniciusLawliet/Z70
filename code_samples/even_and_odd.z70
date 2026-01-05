@@ -1,0 +1,36 @@
+// This program reads 10 numbers stored in memory starting at address A0H.
+// It counts how many numbers are even and how many are odd.
+// The number of even values is stored in register A.
+// The number of odd values is stored in register B.
+
+// PART 1: Initialize memory with test values
+mov I, A0H
+mov A, 02H
+LOOP1:
+	mov [I], A
+	inc I
+	inc A
+	cmp I, AAH
+	jz START
+	jmp LOOP1
+
+// PART 2: Count even and odd numbers
+START:
+	mov I, 9FH
+	mov A, 0		// Clear register A
+	mov B, A		// Clear register B
+LOOP2: 
+	inc I
+	cmp I, AAH
+	jz END	
+	shr [I]
+	jc ODD
+	inc A
+	jmp LOOP2
+ODD: 
+	inc B
+	jmp LOOP2
+END: 
+	nop
+
+// cmd: python z70.py test.z70 A0H-A9H lst.txt

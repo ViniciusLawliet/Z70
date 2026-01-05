@@ -1,0 +1,13 @@
+mov A, 01H
+mov I, 80H
+LOOP:
+    mov [I], A
+    shl A
+    inc I
+jo END
+jmp LOOP
+END: 
+    nop
+    
+// cmd: python z70.py test.z70 80H-87H
+// A loop-based program that places the first eight powers of two (1, 2, 4, 8, 16, 32, 64 and 128) into memory beginning at address 80H.

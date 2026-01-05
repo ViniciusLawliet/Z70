@@ -1,0 +1,24 @@
+// This program stores each bit of register A into memory, starting at address 80H.
+// Each bit is stored as a value 0 or 1 in consecutive memory addresses.
+// The original value of register A is preserved.
+
+mov I, 80H          // This is where the first bit will be stored.
+mov A, 0AH          // This is the number whose bits will be written to memory.
+mov B, A            // Save the original value of register A into register B
+LOOP: 
+	shr A           // Shift register A one bit to the right.
+                    // The least significant bit (LSB) is moved into the Carry Flag (CF).
+	jc SET1         
+	mov [I], 0
+    jmp CTN
+SET1: 
+	mov [I], 1
+CTN:  
+	inc I
+    cmp I, 88H
+    jz END
+	jmp LOOP
+END:  
+	mov A, B        // Restore the original value of register A.
+
+// cmd: python z70.py test.z70 80H-88H
