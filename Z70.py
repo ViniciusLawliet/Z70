@@ -3,7 +3,7 @@ from assembler import *
 from CPU import *
 
 import re
-DUMP_RE = re.compile(r'^[0-9A-Fa-f]{1,3}H?-[0-9A-Fa-f]{1,3}H?$')
+DUMP_RE = re.compile(r'^[0-9A-F]{1,3}H?-[0-9A-F]{1,3}H?$', re.IGNORECASE)
 
 def is_dump_range(arg: str) -> bool:
     return bool(DUMP_RE.match(arg))

@@ -1,7 +1,7 @@
 import re
 from arch import *
 
-HEX_RE = re.compile(r'^(-)?[0-9A-Fa-f]+H?$')
+HEX_RE = re.compile(r'^(-)?[0-9A-F]+H?$', re.IGNORECASE)
 
 def is_hex(arg: str) -> bool:
     return bool(HEX_RE.match(arg))
@@ -71,20 +71,25 @@ def get_instr_size(instr, args):
 
 def parse_arg(arg):
     arg = arg.strip()
-    if arg in ['A', 'B', 'I']:
-        return ('reg', arg)
-    elif arg == '[I]':
+    a_up = arg.upper()
+
+    if a_up in ['A', 'B', 'I']:
+        return ('reg', a_up)
+
+    if a_up == '[I]':
         return ('ind_i', None)
-    elif arg.startswith('[') and arg.endswith(']'):
+
+    if arg.startswith('[') and arg.endswith(']'):
         inner = arg[1:-1].strip()
         if is_hex(inner):
             return ('dir', parse_hex(inner))
         else:
             raise ValueError(f"Invalid direct mem: {arg}")
-    elif is_hex(arg):
+
+    if is_hex(arg):
         return ('const', parse_hex(arg))
-    else:
-        raise ValueError(f"Invalid arg: {arg}")
+
+    raise ValueError(f"Invalid arg: {arg}")
 
 def get_dst_src(mnemon, args):
     is_unary = mnemon in UNARY_MNEMONS
